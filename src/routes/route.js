@@ -34,17 +34,22 @@ let players = [
 
 router.post('/players', function(req, res){
     let ele = req.body.element
-    players.push(ele)
+    let flag = false
+    //players.push(ele)
     
-    for(let i in players){
-        if(i.name==element.name){
-            res.send("Player already exists")
-        } else{
-            res.send({msg: players, status:true})
+    for(i=0; i<players.length; i++){
+        if(ele.name === players[i].name){
+            flag = true
+            break;
         }
-        return;
     }
-    
+
+    if(flag){
+        res.send( {msg: "Name already exist"})
+    }else{
+        players.push(ele)
+            res.send({msg: players, status:true})
+        }    
 })
 
 module.exports = router;
