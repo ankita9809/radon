@@ -8,11 +8,11 @@ const bookSchema = new mongoose.Schema( {
     authorName: String,
     categoryName: {
         type: String,
-        enum: ["Fiction", "Action", "Comics", "Health", "Reference"]
+        enum: ["Fiction", "Action", "Comics", "Health", "Reference", "Novel"]
     },
     year: Number
     //createdAt: 
-    //indatedAt:
+    //updatedAt:
 
 
 }, { timestamps: true });
@@ -20,6 +20,3 @@ const bookSchema = new mongoose.Schema( {
 module.exports = mongoose.model('Book', bookSchema) //users
 
 
-
-// String, Number
-// Boolean, Object/json, array
