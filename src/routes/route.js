@@ -17,13 +17,11 @@ const router = express.Router();
 
   router.get('/movies1/:indexNumber', function (req, res) {
     const arrMovies= ['Rang de basanti', 'The shining','Lord of the rings', 'Batman begins']
-    //let a = arrMovies.length
-    if(req.params.indexNumber > 3){
-         res.send('Invalid Index') 
-         
-    } else {res.send(arrMovies[req.params.indexNumber])
-    return;
-    }
+    let a = arrMovies[req.params.indexNumber]
+    //if(req.params.indexNumber > 3){
+        if(a!== arrMovies.length){
+         res.send(a || 'Invalid Index') 
+        }  
  });
 
  router.get('/films', function(req, res){
@@ -36,27 +34,19 @@ const router = express.Router();
     res.send(arrString)
  })
 
-//  router.get('/candidates', function(req, res){
-//      console.log('Query paramters for this request are '+JSON.stringify(req.query))
-//      let gender = req.query.gender
-//      let state = req.query.state
-//      let district = req.query.district
-//      console.log('State is '+state)
-//      console.log('Gender is '+gender)
-//      console.log('District is '+district)
-//     let candidates = ['Akash','Suman']
-//      res.send(candidates)
-//  })
-
-//  router.get('/candidates/:canidatesName', function(req, res){
-//      console.log('The request objects is '+ JSON.stringify(req.params))
-//      console.log('Candidates name is '+req.params.canidatesName)
-//      res.send('Done')
-//  })
-
-router.get('/movies',function(req,res){
-
-
+  
+router.get('/films/:filmid',function(req,res){
+    const arrString = [
+        {'id': 1, 'name': 'The Shining'},
+        {'id': 2, 'name': 'Incendies'},
+        {'id': 3, 'name': 'Rang de basanti'},
+        {'id': 4, 'name': 'Finding Nemo'},
+    ]
+    
+    let a = arrString[req.params.filmid -1]
+    if(a !== arrString.length){
+        res.send(a || "No movies exists with this id")
+    }
 })
 module.exports = router;
 // adding this comment for no reason
