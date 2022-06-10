@@ -47,21 +47,21 @@ const getBooksWithAuthorDetails = async function (req, res) {
 
 //problem 5
 
+const authorRating = async function(req,res){
+    let check = await authorModel.find({rating : {$gte : 3.5}}).select('_id')
+    let updatePrice = await bookModel.updateMany({author : check}, {$inc: {price : +10}})
+    console.log(updatePrice)
+    res.send({msg : updatePrice})
+}
+
+
 const booksByPut = async function(req, res){
     let pub_id1 = '62a213f41e3fe40140b3878e'
     let pub_id2 = '62a214321e3fe40140b38794'
 
-    let book1 = await bookModel.findByIdAndUpdate({pub_id1}, {$set: isHardCover == true}, {$new : true})
+    let book1 = await bookModel.findByIdAndUpdate(pub_id1, {$set: true}, {$new : true})
     res.send({data: book1})
 }
-
-const authorRating = async function(req, res){
-    let data = await authorModel.find({ rating: { $gt: 3.5 } }).select({ _id: 1 })
-    idArry = data.map((obj) => { return obj._id.toString() })
-    let up = await bookModel.updateMany({ author_id: idArry  }, { $inc: { price: +10 } })
-    res.send({ data: up })
-}
-
 
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
