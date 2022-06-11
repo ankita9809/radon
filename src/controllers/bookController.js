@@ -56,15 +56,14 @@ const authorRating = async function(req,res){
 
 
 const booksByPut = async function(req, res){
-    let pub_id1 = '62a213f41e3fe40140b3878e'
-    let pub_id2 = '62a214321e3fe40140b38794'
+    let book1 = await bookModel.findByIdAndUpdate( {"62a213f41e3fe40140b3878e"  "62a2391cd2b575bd68bb7633"}, {$set: {boolean: true}}, {$new : true})
 
-    let book1 = await bookModel.findByIdAndUpdate(pub_id1, {$set: true}, {$new : true})
+        
     res.send({data: book1})
 }
 
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
 module.exports.getBooksWithAuthorDetails = getBooksWithAuthorDetails
-module.exports.booksByPut = booksByPut
 module.exports.authorRating = authorRating
+module.exports.booksByPut = booksByPut
