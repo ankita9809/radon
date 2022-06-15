@@ -42,14 +42,6 @@ const loginUser = async function (req, res) {
 //-------------------------------------- PROBLEM 3 ------------------------------------------------------------------------------------
 
 const getUserData =  function (req, res) { 
-
-  let userId = req.params.userId;
-    let userDetails =  userModel.findById(userId);
-    if (!userDetails)
-      return res.send({ status: false, msg: "No such user exists" });
-  
-   res.send({ status: true, data: userDetails });
-  
   
 };
 
@@ -73,10 +65,10 @@ const updateUser = async function (req, res) {
 //-------------------------------------- PROBLEM 5 ------------------------------------------------------------------------------------
   
 const deleteUser = async function(req, res){
-  let userId = req.params.userId;
-  let userDetails =  userModel.findById(userId);         
-  if (!userDetails)
-    return res.send({ status: false, msg: "No such user exists" });   //Return an error if no user with the given id exists in the db
+  // let userId = req.params.userId;
+  // let userDetails =  userModel.findById(userId);         
+  // if (!userDetails)
+  //   return res.send({ status: false, msg: "No such user exists" });   //Return an error if no user with the given id exists in the db
 
   //let userId = req.params.userId;
   let userData = req.body;
@@ -89,30 +81,14 @@ const deleteUser = async function(req, res){
 
 const postMessage = async function(req, res){
   let message = req.body.message
-  
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
-  if (!token) return res.send({ status: false, msg: "token must be present" });    //If no token is present in the request header return error
-  console.log(token);
-  
-  let decodedToken = jwt.verify(token, "functionup-radon");   // If a token is present then decode the token with verify function
-  if (!decodedToken)                                         // Input 1 is the token to be decoded and Input 2 was same as generated earlier
-    return res.send({ status: false, msg: "token is invalid" });
-  
-  
-  let userToBeModified = req.params.userId;
-  let userLoggedIn = decodedToken.userId
-
-  if(userToBeModified != userLoggedIn) 
-  return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
-  
+      
   let user = await userModel.findById(req.params.userId)
     if(!user) return res.send({status: false, msg: 'No such user exists'})
     
     let updatedPosts = user.posts
 
     updatedPosts.push(message)    //add the message to user's posts
-    let updatedUser = await userModel.findOneAndUpdate({_id: user._id},{$set :{posts: updatedPosts}}, {$new: true})
+    let updatedUser = await userModel.findOneAndUpdate({_id: user._id},{$set :{posts: updatedPosts}}, {new: true})
     return res.send({status: true, data: updatedUser})    //return the updated user document
 }
 
