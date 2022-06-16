@@ -6,26 +6,35 @@ const userModel = require("../models/userModel");
 //-------------------------------------- PROBLEM 1 ------------------------------------------------------------------------------------
 
 const createUser = async function (abcd, xyz) {         //You can name the req, res objects anything
-  let data = abcd.body;                                 //but the first parameter is always the request
-  let savedData = await userModel.create(data);         //the second parameter is always the response
-  console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
-};                      
+  try {
+    let data = abcd.body;                                 //but the first parameter is always the request
+  let savedData = await userModel.create(data);
+  xyz.status(201).send({msg: savedData})         //the second parameter is always the response
+  //xyz.send({ msg: savedData });
+  }
+  catch(error){
+    //console.log(error.message)
+    xyz.status(500).send({msg: "Error", error: error.message})
 
+  }
+};                      
 
 //-------------------------------------- PROBLEM 2 ------------------------------------------------------------------------------------
 
 const loginUser = async function (req, res) {
+  try{
   let userName = req.body.emailId;
   let password = req.body.password;
 
   let user = await userModel.findOne({ emailId: userName, password: password });
+ 
   if (!user)
-    return res.send({
+     return res.status(401).send({
       status: false,
       msg: "username or the password is not corerct",
     });
-
+  
+ 
   let token = jwt.sign(                  // Once the login is successful, create the jwt token with sign function
     {
       userId: user._id.toString(),      // Input 1 is the payload or the object containing data to be set in token
@@ -36,6 +45,9 @@ const loginUser = async function (req, res) {
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, token: token });
+  } catch(Error) {
+    res.status(500).send({msg: "Error", error:Error.message})
+  }
 };
 
 
