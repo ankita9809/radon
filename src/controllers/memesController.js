@@ -16,9 +16,9 @@ const getAllMemes = async function(req, res){
 
 const memesHandler =async function(req, res){
     try{
-            var options = {
+            let options = {
             methods: "post",
-            url: `https://api.imgflip.com/caption_image?template_id=181913649&text0=FunctionUp&text1=YesFunctionupthisway&username=chewie12345&password=meme@123`
+            url: `https://api.imgflip.com/caption_image?template_id=181913649&text0=Front End Developer&text1=Full Stack Developer&username=chewie12345&password=meme@123`
         }
         let result = await axios(options)
         let data = result.data
