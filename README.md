@@ -46,3 +46,14 @@ Create API's to do each of the following:
                     "url": "https://i.imgflip.com/5mvxax.jpg",
                     "page_url": "https://imgflip.com/i/5mvxax"
                 }
+
+
+
+
+// instead local host paste:
+
+https://cdn-api.co-vin.in/api
+
+//district BY ID
+
+​/v2​/appointment​/sessions​/public​/findByDistrict
