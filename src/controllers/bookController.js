@@ -56,9 +56,7 @@ const authorRating = async function(req,res){
 
 
 const booksByPut = async function(req, res){
-    let book1 = await bookModel.findByIdAndUpdate( {"62a213f41e3fe40140b3878e"  "62a2391cd2b575bd68bb7633"}, {$set: {boolean: true}}, {$new : true})
-
-        
+    let book1 = await bookModel.findByIdAndUpdate( {"62a213f41e3fe40140b3878e" : "62a2391cd2b575bd68bb7633"}, {$set: {boolean: true}}, {$new : true})
     res.send({data: book1})
 }
 
